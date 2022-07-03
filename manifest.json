@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "CleanCopy",
+  "version": "0.1",
+  "description": "Helps you copy the clean url of any post without any tracking data",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "eventPage.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["content.js","jquery-3.6.0.min.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": ["https://developer.chrome.com/*"]
+}

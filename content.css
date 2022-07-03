@@ -1,0 +1,14 @@
+div.copyButton {
+  font-size: 15px;
+  font-weight: 500;
+  align-self: center;
+  color: #65676B;
+  margin-left: 2px;
+  margin-right: 8px;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+div.copyButton:hover {
+  background-color: #F2F2F2;
+}
