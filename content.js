@@ -14,20 +14,22 @@ setInterval(function () {
   let length = posts.length;
   for(i=0 ; i<length ; i++)
   {
-    if(checkVisible(posts[i]) && parent.querySelector("div.copyButton") === null)
+    if(checkVisible(posts[i]))
     {
-      let url = posts[i].querySelectorAll("a[aria-label]")[2].getAttribute("href");
-      let cleanUrl = getCleanUrl2(url);
-      links.push(posts[i].querySelectorAll("a[aria-label]")[2].getAttribute("href"));
       let parent = posts[i].querySelector("div[aria-label='Like']").parentElement.parentElement;
-      let node = copyButton.cloneNode(true);
-      node.setAttribute("href",cleanUrl)
-      parent.append(node);
-        
-      j++;
+      if(parent.querySelector("div.copyButton") === null)
+      {
+        let url = posts[i].querySelectorAll("a[aria-label]")[2].getAttribute("href");
+        let cleanUrl = getCleanUrl2(url);
+        links.push(posts[i].querySelectorAll("a[aria-label]")[2].getAttribute("href"));
+        let node = copyButton.cloneNode(true);
+        node.setAttribute("href",cleanUrl)
+        parent.append(node); 
+        j++;
+      }
     }
   }
-    //chrome.runtime.sendMessage({todo: "showLength", count: posts.length, visiblePosts: j, urls: links});
+  chrome.runtime.sendMessage({todo: "showLength", count: posts.length, visiblePosts: j, urls: links});
   }, 1000);
 
 
