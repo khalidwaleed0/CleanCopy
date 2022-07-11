@@ -17,7 +17,7 @@
     }
   ],
   "permissions": [
-    "tabs"
+    "tabs","clipboardWrite"
   ],
-  "host_permissions": ["https://developer.chrome.com/*"]
+  "host_permissions": ["https://developer.chrome.com/*", "https://www.facebook.com/*"]
 }

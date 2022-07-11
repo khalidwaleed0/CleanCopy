@@ -7,8 +7,14 @@ div.copyButton {
   margin-right: 8px;
   padding: 6px;
   border-radius: 5px;
+  cursor: pointer;
+  
 }
 
 div.copyButton:hover {
   background-color: #F2F2F2;
+}
+
+div.clickedCopyButton {
+  color: #0571ED;
 }

@@ -1,15 +1,11 @@
-//await new Promise(r => setTimeout(r, 2000));
 const copyButton = document.createElement('div');
 copyButton.setAttribute("class","copyButton");
 copyButton.textContent = "Copy Link";
-//copyButton.style = "font-size: 15px; font-weight: 500; align-self: center; color: #65676B; margin-right: 8px; padding: 8px;";
-//copyButton.addEventListener("mouseover",()=>{copyButton.style = copyButton.getAttribute("style") + " background-color: #F2F2F2;"});
-//copyButton.addEventListener("mouseout",()=>{copyButton.style = copyButton.getAttribute("style") + " background-color: #fff;"});
-copyButton.addEventListener("mouseover",(e,s)=>{e.setAttribute("clicked","yes")});
 
 setInterval(function () {
   let j = 0;
   let links = [];
+  /**@type NodeListOf<Element> */
   let posts = document.querySelectorAll("div[aria-labelledby][role='article']");
   let length = posts.length;
   for(i=0 ; i<length ; i++)
@@ -19,19 +15,14 @@ setInterval(function () {
       let parent = posts[i].querySelector("div[aria-label='Like']").parentElement.parentElement;
       if(parent.querySelector("div.copyButton") === null)
       {
-        let url = posts[i].querySelectorAll("a[aria-label]")[2].getAttribute("href");
-        let cleanUrl = getCleanUrl2(url);
-        links.push(posts[i].querySelectorAll("a[aria-label]")[2].getAttribute("href"));
-        let node = copyButton.cloneNode(true);
-        node.setAttribute("href",cleanUrl)
-        parent.append(node); 
-        j++;
+        let postUrl = getPostUrl(posts[i]);
+        let cleanUrl = getCleanUrl(postUrl);
+        addCopyButton(parent, cleanUrl);
       }
     }
   }
   chrome.runtime.sendMessage({todo: "showLength", count: posts.length, visiblePosts: j, urls: links});
-  }, 1000);
-
+  }, 500);
 
 function checkVisible(elm)
 {
@@ -40,14 +31,46 @@ function checkVisible(elm)
   return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
 }
 
-function getCleanUrl(/**@type String */ url)
+function addCopyButton(parent, cleanUrl)
 {
-  return url.replace("/&+","").replace("posts/");
-}
-function getCleanUrl2(/**@type String */ url)
-{
-  return url.replace(/&.+/,"").replace("?multi_permalinks=","posts/");
+  let node = copyButton.cloneNode(true);
+  node.setAttribute("href",cleanUrl);
+  parent.append(node);
+  node.addEventListener("click",(e,h)=>{
+    copy(node,cleanUrl);
+    e.target.className = "copyButton clickedCopyButton";
+    e.target.textContent = "Copied !";
+    setTimeout(()=>{
+      e.target.textContent = "Copy Link"
+      e.target.className = "copyButton";
+    }, 400);
+  });
 }
 
-// ابقى استثني لما يفتح فيديو معين ميدورش في البوستات الجانبية اللي فيه
-// remove everything after '?'
+function getPostUrl(post)
+{
+  let postUrlElement = post.querySelector("span[id] a[aria-label]");
+  if(postUrlElement.getAttribute("aria-label") === "Sponsored")
+    postUrlElement = post.querySelectorAll("a[aria-label]")[2];
+  return postUrlElement.getAttribute("href");
+}
+
+function getCleanUrl(/**@type String */ url)
+{
+  url = url.replace(/&[^(id)].+/,"").replace("?multi_permalinks=","posts/").replace(/\?__.+/,"");
+  if(url.startsWith("/"))
+    url = "https://www.facebook.com" + url;
+  return decodeURIComponent(url).replace("https://l.facebook.com/l.php?u=","").replace(/\?utm.+/,"").replace(/&\?fbclid.+/,"");
+}
+
+function copy(node,url)
+{
+  let input = document.createElement('textarea');
+  input.style = "opacity: 0;"
+  node.append(input);
+  input.value = url;
+  input.select();
+  input.focus();
+  document.execCommand("copy");
+  input.remove();
+}
