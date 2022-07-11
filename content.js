@@ -48,7 +48,9 @@ function addCopyButton(parent, cleanUrl)
 function getPostUrl(post)
 {
   let postUrlElement = post.querySelector("span[id] a[aria-label]");
-  if(postUrlElement.getAttribute("aria-label") === "Sponsored")
+  if(postUrlElement === null)
+    postUrlElement = post.querySelector("div[aria-labelledby][role='article'] div[id] a");
+  else if(postUrlElement.getAttribute("aria-label") === "Sponsored")
     postUrlElement = post.querySelectorAll("a[aria-label]")[2];
   return postUrlElement.getAttribute("href");
 }
