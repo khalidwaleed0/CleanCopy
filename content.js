@@ -58,7 +58,7 @@ function getCleanUrl(/**@type String */ url)
   url = url.replace(/&[^(id)].+/,"").replace("?multi_permalinks=","posts/").replace(/\?__.+/,"");
   if(url.startsWith("/"))
     url = "https://www.facebook.com" + url;
-  return decodeURIComponent(url).replace("https://l.facebook.com/l.php?u=","").replace(/\?utm.+/,"").replace(/&\?fbclid.+/,"");
+  return decodeURIComponent(url).replace("https://l.facebook.com/l.php?u=","").replace(/(&|\?)utm.+/,"").replace(/(&|\?)fbclid.+/,"");
 }
 
 function copy(node,url)
