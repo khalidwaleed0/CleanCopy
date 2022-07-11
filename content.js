@@ -11,7 +11,7 @@ setInterval(function () {
   {
     if(checkVisible(posts[i]))
     {
-      let parent = posts[i].querySelector("div[aria-label='Like']").parentElement.parentElement;
+      let parent = posts[i].querySelector("div[aria-label='Like'], div[aria-label*='Remove']").parentElement.parentElement;
       if(parent.querySelector("div.copyButton") === null)
       {
         let postUrl = getPostUrl(posts[i]);
@@ -20,7 +20,7 @@ setInterval(function () {
       }
     }
   }
-  }, 500);
+  }, 400);
 
 function checkVisible(elm)
 {
