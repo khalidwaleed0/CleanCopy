@@ -3,11 +3,10 @@ copyButton.setAttribute("class","copyButton");
 copyButton.textContent = "Copy Link";
 
 setInterval(function () {
-  let j = 0;
-  let links = [];
   /**@type NodeListOf<Element> */
   let posts = document.querySelectorAll("div[aria-labelledby][role='article']");
   let length = posts.length;
+  let j = 0;
   for(i=0 ; i<length ; i++)
   {
     if(checkVisible(posts[i]))
@@ -21,7 +20,6 @@ setInterval(function () {
       }
     }
   }
-  chrome.runtime.sendMessage({todo: "showLength", count: posts.length, visiblePosts: j, urls: links});
   }, 500);
 
 function checkVisible(elm)

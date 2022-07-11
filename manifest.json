@@ -6,18 +6,14 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "background": {
-    "service_worker": "eventPage.js"
-  },
   "content_scripts": [
     {
       "matches": ["https://www.facebook.com/*"],
-      "js": ["content.js","jquery-3.6.0.min.js"],
+      "js": ["content.js"],
       "css": ["content.css"]
     }
   ],
   "permissions": [
     "tabs","clipboardWrite"
-  ],
-  "host_permissions": ["https://developer.chrome.com/*", "https://www.facebook.com/*"]
+  ]
 }
