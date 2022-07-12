@@ -1,17 +1,30 @@
+let str_copyLink = "Copy Link";
+let str_copied = "Copied !";
+let str_sponsored = "Sponsored";
+let str_likeButtonSelector = "div[aria-label='Like'], div[aria-label*='Remove']";
+let lang = document.querySelector("html").getAttribute("lang");
+if(lang === "ar")
+{
+  str_sponsored = "مُموَّل";
+  str_likeButtonSelector = "div[aria-label='أعجبني'], div[aria-label*='إزالة']";
+  str_copyLink = "نسخ الرابط";
+  str_copied = "تم النسخ";
+}
+
 const copyButton = document.createElement('div');
 copyButton.setAttribute("class","copyButton");
-copyButton.textContent = "Copy Link";
+copyButton.textContent = str_copyLink;
+
 
 setInterval(function () {
   /**@type NodeListOf<Element> */
   let posts = document.querySelectorAll("div[aria-labelledby][role='article']");
   let length = posts.length;
-  let j = 0;
   for(i=0 ; i<length ; i++)
   {
     if(checkVisible(posts[i]))
     {
-      let parent = posts[i].querySelector("div[aria-label='Like'], div[aria-label*='Remove']").parentElement.parentElement;
+      let parent = posts[i].querySelector(str_likeButtonSelector).parentElement.parentElement;
       if(parent.querySelector("div.copyButton") === null)
       {
         let postUrl = getPostUrl(posts[i]);
@@ -37,9 +50,9 @@ function addCopyButton(parent, cleanUrl)
   node.addEventListener("click",(e,h)=>{
     copy(node,cleanUrl);
     e.target.className = "copyButton clickedCopyButton";
-    e.target.textContent = "Copied !";
+    e.target.textContent = str_copied;
     setTimeout(()=>{
-      e.target.textContent = "Copy Link"
+      e.target.textContent = str_copyLink;
       e.target.className = "copyButton";
     }, 400);
   });
@@ -47,12 +60,25 @@ function addCopyButton(parent, cleanUrl)
 
 function getPostUrl(post)
 {
-  let postUrlElement = post.querySelector("span[id] a[aria-label]");
-  if(postUrlElement === null)
-    postUrlElement = post.querySelector("div[aria-labelledby][role='article'] div[id] a");
-  else if(postUrlElement.getAttribute("aria-label") === "Sponsored")
-    postUrlElement = post.querySelectorAll("a[aria-label]")[2];
+  let postUrlElement =  getNormalPostUrlElement(post)?? getEventUrlElement(post)?? getNearestUrlElement(post);
+  if(postUrlElement.getAttribute("aria-label") === str_sponsored)
+    postUrlElement = post.querySelectorAll("a[aria-label]")[2]
   return postUrlElement.getAttribute("href");
+}
+
+function getNormalPostUrl(post)
+{
+  return post.querySelector("span[id] a[aria-label]");
+}
+
+function getEventUrl(post)
+{
+  return post.querySelector("div[aria-labelledby][role='article'] div[id] a");
+}
+
+function getNearestUrl(post)
+{
+  return post.querySelectorAll("span a[aria-label]")[1];
 }
 
 function getCleanUrl(/**@type String */ url)
