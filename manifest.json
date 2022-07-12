@@ -1,10 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "CleanCopy",
-  "version": "0.1",
-  "description": "Helps you copy the clean url of any post without any tracking data",
+  "name": "Clean Copy for facebook posts",
+  "version": "1.0",
+  "description": "Helps you copy the clean url of any post without any tracking data with one click",
   "action": {
     "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "icon128.png",
+    "48": "icon48.png",
+    "16": "icon16.png"
   },
   "content_scripts": [
     {
@@ -14,6 +19,6 @@
     }
   ],
   "permissions": [
-    "tabs","clipboardWrite"
+    "clipboardWrite"
   ]
 }

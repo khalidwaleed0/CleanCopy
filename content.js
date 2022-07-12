@@ -61,22 +61,33 @@ function addCopyButton(parent, cleanUrl)
 function getPostUrl(post)
 {
   let postUrlElement =  getNormalPostUrlElement(post)?? getEventUrlElement(post)?? getNearestUrlElement(post);
-  if(postUrlElement.getAttribute("aria-label") === str_sponsored)
-    postUrlElement = post.querySelectorAll("a[aria-label]")[2]
+  if(postUrlElement.getAttribute("href").includes("https://www.facebook.com/?__"))
+    postUrlElement = postUrlElements[postUrlElements.length-1];
+  else if(postUrlElement.getAttribute("aria-label") === str_sponsored)
+    postUrlElement = getSponsoredUrlElement(post);
   return postUrlElement.getAttribute("href");
 }
 
-function getNormalPostUrl(post)
+function getSponsoredUrlElement(post)
+{
+  postUrlElements = post.querySelectorAll("a[aria-label]");
+  if(postUrlElements.length >= 2)
+    return postUrlElements[2];
+  postUrlElements = post.querySelectorAll("a");
+  return postUrlElements[postUrlElements.length-1];
+}
+
+function getNormalPostUrlElement(post)
 {
   return post.querySelector("span[id] a[aria-label]");
 }
 
-function getEventUrl(post)
+function getEventUrlElement(post)
 {
   return post.querySelector("div[aria-labelledby][role='article'] div[id] a");
 }
 
-function getNearestUrl(post)
+function getNearestUrlElement(post)
 {
   return post.querySelectorAll("span a[aria-label]")[1];
 }
