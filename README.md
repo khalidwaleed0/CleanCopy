@@ -6,4 +6,5 @@
 <br>
 ## Download
 chrome  : https://chrome.google.com/webstore/detail/clean-copy-for-facebook-p/lcjaepcaegbfmappknpidecadlpkimke
+<br>
 firefox : https://addons.mozilla.org/en-US/firefox/addon/clean-copy-for-facebook-posts/
