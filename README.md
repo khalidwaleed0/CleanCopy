@@ -1,4 +1,4 @@
-# CleanCopy
+# Clean Copy for facebook posts
  Helps you copy the clean url of any post without any tracking data with one click.
  <br>
 <img src="https://user-images.githubusercontent.com/54943086/178617721-243b7547-7b55-4c37-87c9-9b1962a5bf32.png" width="500"/>
