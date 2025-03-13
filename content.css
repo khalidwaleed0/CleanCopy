@@ -2,19 +2,18 @@ div.copyButton {
   font-size: 15px;
   font-weight: 500;
   align-self: center;
-  color: #65676B;
+  color: #65676b;
   margin-left: 3px;
   margin-right: 3px;
   padding: 6px;
   border-radius: 5px;
   cursor: pointer;
-  
 }
 
 div.copyButton:hover {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
-div.clickedCopyButton {
-  color: #0571ED;
+div.copyButton.clicked {
+  color: #0571ed;
 }
