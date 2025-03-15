@@ -18,7 +18,10 @@
       "css": ["content.css"]
     }
   ],
-  "permissions": [
-    "clipboardWrite"
-  ]
+  "permissions": ["clipboardWrite"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{869bb47f-127e-48a4-92ea-3291be48ce5c}"
+    }
+  }
 }
