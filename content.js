@@ -62,8 +62,8 @@ async function getPostUrl(post) {
 function getCleanUrl(/**@type String */ url) {
   if (url) {
     url = url
-      .replaceAll(/\?hoisted_section_header_type=recently_seen&/gm, "")
-      .replaceAll("multi_permalinks=", "posts/");
+      .replaceAll(/(\?|&)hoisted_section_header_type=recently_seen&*/gm, "")
+      .replaceAll("\?*multi_permalinks=", "posts/");
     url = url.replaceAll(/(&|\?)__cft.+/gm, "").replaceAll(/&set=.+/gm, "");
     url = url.replaceAll(/\?comment_id=.+/gm, "");
     return decodeURIComponent(url);
