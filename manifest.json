@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Clean Copy for facebook posts",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Helps you copy the clean url of any post without any tracking data with one click",
   "action": {
     "default_popup": "popup.html"
